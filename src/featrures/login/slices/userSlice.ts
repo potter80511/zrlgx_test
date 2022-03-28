@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { loginAction } from '../actions/loginActions';
+import { loginAction, checkUserToken } from '../actions/loginActions';
 import { NetLoginResponse, UserInfo } from '../types'
+import jsCookie from 'js-cookie';
 
 export type State = {
   userInfo: UserInfo | null;
@@ -13,18 +14,24 @@ export const initialState: State = {
 }
 
 export type CaseReducer = {
-  setFirstState: (state: State, action: PayloadAction<string>) => State
+  setUserInfo: (state: State, action: PayloadAction<Partial<State>>) => State
+  reset: () => State
 }
 
 const userSlice = createSlice<State, CaseReducer>({
   name: '/userSlice',
   initialState,
   reducers: {
-    setFirstState(state: State, action: PayloadAction<string>) {
+    setUserInfo(state: State, action: PayloadAction<Partial<State>>) {
       return {
         ...state,
-        firstState: action.payload
+        ...action.payload
       }
+    },
+    reset() {
+      jsCookie.remove('user_token');
+
+      return initialState
     }
   },
   extraReducers: {
@@ -34,14 +41,22 @@ const userSlice = createSlice<State, CaseReducer>({
     [loginAction.fulfilled.toString()]: (state, action: PayloadAction<NetLoginResponse>) => {
       const { user, token } = action.payload
 
+      jsCookie.set('user_token', token);
+
       state.userInfo = user;
       state.token = token;
+    },
+
+    [checkUserToken.fulfilled.toString()]: (state, action: PayloadAction<Pick<NetLoginResponse, 'user'>>) => {
+      const { user } = action.payload
+      state.userInfo = user;
     },
   },
 });
 
 export const {
-  setFirstState
+  setUserInfo,
+  reset,
 } = userSlice.actions;
 
 export default userSlice.reducer;

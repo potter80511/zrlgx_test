@@ -19,3 +19,17 @@ export const loginAction = createAsyncThunk(
     }
   }
 );
+
+export const checkUserToken = createAsyncThunk(
+  'login',
+  async (params: { token: string }, thunkAPI) => {
+    try {
+      const response = await postApi('/auth/me', { ...params });
+      const { data } = response;
+      const result = data;
+      return result;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error })
+    }
+  }
+);
