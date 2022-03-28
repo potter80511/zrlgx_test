@@ -5,11 +5,15 @@ import { NetPostListData, PostList } from '../types';
 export type State = {
   list: PostList[];
   loading: boolean;
+  hasMore: boolean;
+  page: number;
 }
 
 export const initialState: State = {
   list: [],
-  loading: false,
+  loading: true,
+  hasMore: false,
+  page: 1,
 }
 
 export type CaseReducer = {
@@ -28,15 +32,18 @@ const postListSlice = createSlice<State, CaseReducer>({
     // }
   },
   extraReducers: {
-    [getPostList.pending.toString()]: (state) => {
-      state.loading = true;
-    },
+    // [getPostList.pending.toString()]: (state) => {
+    //   state.loading = true;
+    // },
     [getPostList.fulfilled.toString()]: (state, action: PayloadAction<NetPostListData>) => {
-      const { data } = action.payload
+      const { data, meta: { pagination: { total } } } = action.payload
       const newList = state.list.concat(data);
+
+      state.hasMore = newList.length < total
 
       state.list = newList;
       state.loading = false;
+      state.page = state.page + 12;
     },
   },
 });
