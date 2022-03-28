@@ -7,6 +7,7 @@ export type NetPostListData = {
   };
 }
 export type PostList = {
+  id: number;
   created_at: string;
   title: string;
   content: string;

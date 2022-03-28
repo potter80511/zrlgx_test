@@ -29,7 +29,7 @@ const PostListBlock = (props: PostListProps) => {
       <div>loading</div>
     : <>
         {list.map((post) => {
-          return <Post post={post} onRegisterClick={onRegisterClick} />
+          return <Post key={post.id} post={post} onRegisterClick={onRegisterClick} />
         })}
         {hasMore &&
           <Waypoint

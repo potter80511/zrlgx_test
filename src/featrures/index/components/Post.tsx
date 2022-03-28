@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { lineClamp } from '../../../styles/mixin';
 import { PostList } from '../types';
 import arrowCircle from '../../../svg/arrow.svg'
+import dayjs from 'dayjs';
 
 type PostProps = {
   post: PostList;
@@ -69,10 +70,10 @@ const Post = (props: PostProps) => {
     post: { title, created_at, content, favourited },
     onRegisterClick
   } = props;
-  
+
   return (
     <StyledPost>
-      <StyledCreatedAt>{created_at}</StyledCreatedAt>
+      <StyledCreatedAt>{dayjs(created_at).format('DD/MM/YYYY')}</StyledCreatedAt>
       <StyledH3>{title}</StyledH3>
       <StyledContent dangerouslySetInnerHTML={{__html: content}} clamp={3} />
       <StyledRegisterNow onClick={onRegisterClick}>
