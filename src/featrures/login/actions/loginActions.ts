@@ -21,7 +21,7 @@ export const loginAction = createAsyncThunk(
 );
 
 export const checkUserToken = createAsyncThunk(
-  'login',
+  'login/checkUserToken',
   async (params: { token: string }, thunkAPI) => {
     try {
       const response = await postApi('/auth/me', { ...params });

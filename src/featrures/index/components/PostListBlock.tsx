@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { PostList } from '../types';
 import Post from './Post';
-import InfiniteScroll from "react-infinite-scroll-component";
 import { Waypoint } from 'react-waypoint';
 
 type PostListProps = {

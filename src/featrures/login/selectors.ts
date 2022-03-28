@@ -8,3 +8,8 @@ export const userInfoSelector = createSelector(
   ({userInfo}) => userInfo
 );
 
+export const userUnAuthorizedSelector = createSelector(
+  userSelector, 
+  ({ unAuthorized }) => unAuthorized
+);
+

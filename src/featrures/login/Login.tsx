@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Flex from '../../components/Flex';
 import { StyledContainer } from '../../styles/commonStyles';
 import { loginAction } from './actions/loginActions';
-import { userInfoSelector } from './selectors'
+import { userInfoSelector, userUnAuthorizedSelector } from './selectors'
 
 const StyledLogin = styled(StyledContainer)`
   margin-top: 50px;
@@ -70,6 +70,12 @@ const StyledSubmitButton = styled.button`
   border-radius: 2px;
 `;
 
+const StyledLoginUnAuthorized = styled.div`
+  color: red;
+  font-weight: 600;
+  font-size: 14px;
+`;
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -78,6 +84,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const userInfo = useSelector(userInfoSelector);
+  const userUnAuthorized = useSelector(userUnAuthorizedSelector);
 
   useEffect(() => {
     userInfo && navigate('/');
@@ -88,6 +95,7 @@ const Login = () => {
       <StyledLoginBlock>
         <StyledLoginHead>Login</StyledLoginHead>
         <StyledLoginBody>
+          {userUnAuthorized && <StyledLoginUnAuthorized>登入錯誤</StyledLoginUnAuthorized>}
           <StyledInputField>
             <StyledLabel>Email: </StyledLabel>
             <StyledInput type="text" onChange={(e) => setEmail(e.currentTarget.value)} />

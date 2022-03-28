@@ -6,16 +6,18 @@ import jsCookie from 'js-cookie';
 export type State = {
   userInfo: UserInfo | null;
   token: string;
+  unAuthorized: boolean;
 }
 
 export const initialState: State = {
   userInfo: null,
   token: '',
+  unAuthorized: false,
 }
 
 export type CaseReducer = {
   setUserInfo: (state: State, action: PayloadAction<Partial<State>>) => State
-  reset: () => State
+  reset: () => void
 }
 
 const userSlice = createSlice<State, CaseReducer>({
@@ -45,6 +47,11 @@ const userSlice = createSlice<State, CaseReducer>({
 
       state.userInfo = user;
       state.token = token;
+      state.unAuthorized = false;
+    },
+    [loginAction.rejected.toString()]: (state) => {
+      console.log('fail')
+      state.unAuthorized = true;
     },
 
     [checkUserToken.fulfilled.toString()]: (state, action: PayloadAction<Pick<NetLoginResponse, 'user'>>) => {
