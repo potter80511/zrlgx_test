@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { StyledContainer } from '../styles/commonStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { userInfoSelector } from '../featrures/login/selectors'
-import { reset as resetUserInfo } from '../featrures/login/slices/userSlice';
-import { checkUserToken } from '../featrures/login/actions/loginActions';
+import { checkUserToken, logoutAction } from '../featrures/login/actions/loginActions';
 import Flex from './Flex';
 import jsCookie from 'js-cookie';
 
@@ -54,8 +53,9 @@ const Header = () => {
   const isLogin = !!userInfo;
 
   const logout = useCallback(() => {
-    dispatch(resetUserInfo())
-  }, [dispatch, resetUserInfo]);
+    const userToken = jsCookie.get('user_token');
+    userToken && dispatch(logoutAction(userToken))
+  }, [dispatch, logoutAction]);
 
   useEffect(() => {
     const userToken = jsCookie.get('user_token');

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { loginAction, checkUserToken } from '../actions/loginActions';
+import { loginAction, logoutAction, checkUserToken } from '../actions/loginActions';
 import { NetLoginResponse, UserInfo } from '../types'
 import jsCookie from 'js-cookie';
 
@@ -52,6 +52,11 @@ const userSlice = createSlice<State, CaseReducer>({
     [loginAction.rejected.toString()]: (state) => {
       console.log('fail')
       state.unAuthorized = true;
+    },
+    
+    [logoutAction.fulfilled.toString()]: () => {
+      jsCookie.remove('user_token');
+      return initialState;
     },
 
     [checkUserToken.fulfilled.toString()]: (state, action: PayloadAction<Pick<NetLoginResponse, 'user'>>) => {

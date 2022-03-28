@@ -20,6 +20,20 @@ export const loginAction = createAsyncThunk(
   }
 );
 
+export const logoutAction = createAsyncThunk(
+  'logout',
+  async (token: string, thunkAPI) => {
+    try {
+      const response = await postApi('/auth/logout', { token });
+      const { data } = response;
+      const result = data;
+      return result;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error })
+    }
+  }
+);
+
 export const checkUserToken = createAsyncThunk(
   'login/checkUserToken',
   async (params: { token: string }, thunkAPI) => {
