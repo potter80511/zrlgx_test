@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { getPostList } from './actions/postListActions';
 import PostListBlock from './components/PostListBlock';
 import { postListSelector, postListLoadingSelector, postListNextPageSelector, postListHasMoreSelector } from './selectors';
+import { reset } from './slices/postListSlice';
 
 const StyledIndex = styled.div`
   background: #F2F2F2;
@@ -28,11 +29,14 @@ const IndexContainer = () => {
     } else {
       navigate('/login');
     }
-  }, []);
+  }, [isLogin]);
 
   useEffect(() => {
     dispatch(getPostList({per_page: 12, page: postListNextPage}));
-  }, [isLogin]);
+    return () => {
+      dispatch(reset());
+    }
+  }, []);
 
   return <StyledIndex>
     <PostListBlock

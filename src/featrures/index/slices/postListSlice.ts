@@ -17,19 +17,18 @@ export const initialState: State = {
 }
 
 export type CaseReducer = {
-  // setFirstState: (state: State, action: PayloadAction<string>) => State
+  reset: () => State
 }
 
 const postListSlice = createSlice<State, CaseReducer>({
   name: '/postListSlice',
   initialState,
   reducers: {
-    // setFirstState(state: State, action: PayloadAction<string>) {
-    //   return {
-    //     ...state,
-    //     firstState: action.payload
-    //   }
-    // }
+    reset() {
+      return {
+        ...initialState,
+      }
+    }
   },
   extraReducers: {
     // [getPostList.pending.toString()]: (state) => {
@@ -49,7 +48,7 @@ const postListSlice = createSlice<State, CaseReducer>({
 });
 
 export const {
-  // setFirstState
+  reset
 } = postListSlice.actions;
 
 export default postListSlice.reducer;

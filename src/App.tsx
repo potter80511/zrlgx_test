@@ -7,16 +7,14 @@ import store from './store';
 import IndexContainer from './featrures/index/IndexContainer';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Login from './featrures/login/Login';
-// import { Route, Switch } from 'react-router';
+import Header from './components/Header';
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <header className="">
-          header
-        </header>
         <BrowserRouter>
+          <Header/>
           <Routes>
             <Route path="/" element={<IndexContainer/>} />
             <Route path="/login" element={<Login />} />
