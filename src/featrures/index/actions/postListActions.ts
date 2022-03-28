@@ -4,6 +4,7 @@ import { getApi } from "../../../api/Fetcher";
 type Params = {
   per_page: number;
   page: number;
+  favourited?: number;
 }
 
 export const getPostList = createAsyncThunk(

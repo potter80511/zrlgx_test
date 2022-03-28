@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getPostList } from './actions/postListActions';
@@ -17,9 +17,20 @@ const IndexContainer = () => {
   const postListNextPage = useSelector(postListNextPageSelector);
   const postListHasMore = useSelector(postListHasMoreSelector);
 
+  const isLogin = false;
+
+  const onRegisterClick = useCallback(() => {
+
+    if (isLogin) {
+      console.log('isLogin')
+    } else {
+      console.log('not login')
+    }
+  }, []);
+
   useEffect(() => {
     dispatch(getPostList({per_page: 12, page: postListNextPage}));
-  }, []);
+  }, [isLogin]);
 
   return <StyledIndex>
     <PostListBlock
@@ -27,6 +38,7 @@ const IndexContainer = () => {
       loading={postListLoading}
       hasMore={postListHasMore}
       getMorePost={() => dispatch(getPostList({per_page: 12, page: postListNextPage}))}
+      onRegisterClick={onRegisterClick}
     />
   </StyledIndex>
 }

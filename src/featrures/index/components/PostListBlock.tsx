@@ -10,6 +10,7 @@ type PostListProps = {
   loading: boolean;
   hasMore: boolean;
   getMorePost: () => void;
+  onRegisterClick: () => void;
 }
 
 const StyledPostList = styled.div`
@@ -21,13 +22,14 @@ const StyledPostList = styled.div`
 `
 
 const PostListBlock = (props: PostListProps) => {
-  const { list = [], loading, hasMore, getMorePost } = props;
+  const { list = [], loading, hasMore, getMorePost, onRegisterClick } = props;
+
   return <StyledPostList>
     {loading ?
       <div>loading</div>
     : <>
         {list.map((post) => {
-          return <Post post={post}/>
+          return <Post post={post} onRegisterClick={onRegisterClick} />
         })}
         {hasMore &&
           <Waypoint
