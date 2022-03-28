@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../styles/commonStyles';
+import { useSelector } from 'react-redux';
+import { userInfoSelector } from '../featrures/login/selectors'
+import Flex from './Flex';
 
 const StyledHeaderContent = styled(StyledContainer)`
   padding: 20px 0;
@@ -9,16 +12,15 @@ const StyledHeaderContent = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const StyledUserButtons = styled.header`
-  display: flex;
-  font-size: 16px;
   button, a {
     text-align: center;
     width: 100px;
     padding: 8px 0;
   }
+`;
+
+const StyledUserButtons = styled(Flex)`
+  font-size: 16px;
 `;
 
 const StyledLoginButton = styled(Link)`
@@ -35,7 +37,18 @@ const StyledRegisterButton = styled.button`
   background-color: #01254F;
 `;
 
+const StyledUserName = styled.div`
+  color: #333;
+  margin-right: 10px;
+  b {
+    color: #01254F;
+  }
+`;
+
 const Header = () => {
+  const userInfo = useSelector(userInfoSelector);
+  const isLogin = !!userInfo;
+  
   return (
     <header>
       <StyledHeaderContent>
@@ -43,9 +56,12 @@ const Header = () => {
           <Link to="/">logo</Link>
         </div>
         <div>menu</div>
-        <StyledUserButtons>
-          <StyledLoginButton to="/login">Login</StyledLoginButton>
-          <StyledRegisterButton>Register</StyledRegisterButton>
+        <StyledUserButtons alignItems="center">
+          {isLogin
+            ? <StyledUserName>Hello <b>{userInfo.username}</b> !</StyledUserName>
+            : <StyledLoginButton to="/login">Login</StyledLoginButton>
+          }
+          <StyledRegisterButton>{isLogin ? 'Logout' : 'Register'}</StyledRegisterButton>
         </StyledUserButtons>
       </StyledHeaderContent>
     </header>

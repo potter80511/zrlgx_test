@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import arrowCircle from '../../../svg/arrow.svg'
 import Flex from '../../components/Flex';
 import { StyledContainer } from '../../styles/commonStyles';
+import { loginAction } from './actions/loginActions';
+import { userInfoSelector } from './selectors'
 
 const StyledLogin = styled(StyledContainer)`
   margin-top: 50px;
@@ -68,6 +71,18 @@ const StyledSubmitButton = styled.button`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const userInfo = useSelector(userInfoSelector);
+
+  useEffect(() => {
+    userInfo && navigate('/');
+  }, [userInfo]);
+
   return (
     <StyledLogin>
       <StyledLoginBlock>
@@ -75,16 +90,16 @@ const Login = () => {
         <StyledLoginBody>
           <StyledInputField>
             <StyledLabel>Email: </StyledLabel>
-            <StyledInput type="text" />
+            <StyledInput type="text" onChange={(e) => setEmail(e.currentTarget.value)} />
           </StyledInputField>
           <StyledInputField>
             <StyledLabel>Password: </StyledLabel>
-            <StyledInput type="password" />
+            <StyledInput type="password" onChange={(e) => setPassword(e.currentTarget.value)} />
           </StyledInputField>
         </StyledLoginBody>
         <StyledLoginFooter>
           <Flex justifyContent="flex-end">
-            <StyledSubmitButton>Login</StyledSubmitButton>
+            <StyledSubmitButton onClick={() => dispatch(loginAction({email, password}))}>Login</StyledSubmitButton>
           </Flex>
         </StyledLoginFooter>
       </StyledLoginBlock>

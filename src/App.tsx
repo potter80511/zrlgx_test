@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Test from './components/first_component/slices/Test';
 import { Provider } from 'react-redux';
 import store from './store';
 import IndexContainer from './featrures/index/IndexContainer';
