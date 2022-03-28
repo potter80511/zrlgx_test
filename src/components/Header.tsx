@@ -1,13 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import arrowCircle from '../../../svg/arrow.svg'
 import { Link } from 'react-router-dom';
+import { StyledContainer } from '../styles/commonStyles';
 
-const StyledHeaderContent = styled.div`
+const StyledHeaderContent = styled(StyledContainer)`
   padding: 20px 0;
-  margin: 0 auto;
-  max-width: 1024px;
-  width: 100%;
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
