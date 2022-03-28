@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPostList } from './actions/postListActions';
 import PostListBlock from './components/PostListBlock';
@@ -11,6 +12,8 @@ const StyledIndex = styled.div`
 `
 
 const IndexContainer = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const postList = useSelector(postListSelector);
   const postListLoading = useSelector(postListLoadingSelector);
@@ -20,11 +23,10 @@ const IndexContainer = () => {
   const isLogin = false;
 
   const onRegisterClick = useCallback(() => {
-
     if (isLogin) {
       console.log('isLogin')
     } else {
-      console.log('not login')
+      navigate('/login');
     }
   }, []);
 
