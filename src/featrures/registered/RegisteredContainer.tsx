@@ -1,12 +1,11 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CookiesHelper } from '../../helper/CookiesHelper';
-import { getPostList } from '../index/actions/postListActions';
+import { getPostList, unFavoritePosts } from '../index/actions/postListActions';
 import PostListBlock from '../index/components/PostListBlock';
 import { postListSelector, postListLoadingSelector, postListNextPageSelector, postListHasMoreSelector } from '../index/selectors';
 import { reset as resetPostList } from '../index/slices/postListSlice';
-import { userInfoSelector } from '../login/selectors';
 
 const RegisteredContainer = () => {
   const navigate = useNavigate();
@@ -16,19 +15,9 @@ const RegisteredContainer = () => {
   const postListLoading = useSelector(postListLoadingSelector);
   const postListNextPage = useSelector(postListNextPageSelector);
   const postListHasMore = useSelector(postListHasMoreSelector);
-  const userInfo = useSelector(userInfoSelector);
 
   const userToken = CookiesHelper.getUserToken();
   const isLogin = CookiesHelper.getCookie('isLogin');
-
-
-  const onRegisterClick = useCallback(() => {
-    if (isLogin) {
-      console.log('isLogin')
-    } else {
-      navigate('/login');
-    }
-  }, [isLogin]);
 
   useEffect(() => {
     dispatch(getPostList({per_page: 12, page: postListNextPage, token: userToken, favourited: 1}));
@@ -53,7 +42,12 @@ const RegisteredContainer = () => {
     loading={postListLoading}
     hasMore={postListHasMore}
     getMorePost={() => dispatch(getPostList({per_page: 12, page: postListNextPage, token: userToken, favourited: 1}))}
-    onRegisterClick={onRegisterClick}
+    onRegisterClick={
+      (id) =>
+        dispatch(
+          unFavoritePosts({ id, token: userToken })
+        )
+    }
   />
 }
 

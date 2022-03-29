@@ -10,7 +10,7 @@ type PostListProps = {
   loading: boolean;
   hasMore: boolean;
   getMorePost: () => void;
-  onRegisterClick: () => void;
+  onRegisterClick: (id: number) => void;
 }
 
 const StyledPostList = styled.div`
@@ -39,7 +39,7 @@ const PostListBlock = (props: PostListProps) => {
             return <Post
               key={post.id}
               post={post}
-              onRegisterClick={onRegisterClick}
+              onRegisterClick={() => onRegisterClick(post.id)}
             />
           })}
           {hasMore &&

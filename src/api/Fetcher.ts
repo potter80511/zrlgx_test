@@ -18,6 +18,6 @@ export const putApi = (url: string, data: any) => {
   return axios.put(url, data, baseConfig);
 };
 
-export const deleteApi = (url: string, data: any) => {
-  return axios.delete(url, baseConfig);
+export const deleteApi = (url: string, config?: AxiosRequestConfig) => {
+  return axios.delete(url, { ...baseConfig, ...config });
 }

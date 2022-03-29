@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import { getPostList } from '../actions/postListActions';
+import { getPostList, unFavoritePosts } from '../actions/postListActions';
 import { NetPostListData } from '../types';
 import { SinglePost } from '../../webinar_detail/types';
 
@@ -44,6 +44,13 @@ const postListSlice = createSlice<State, CaseReducer>({
       state.list = newList;
       state.loading = false;
       state.page = state.page + 1;
+    },
+
+    [unFavoritePosts.fulfilled.toString()]: (state, action: PayloadAction<{id: number}>) => {
+      const { id } = action.payload
+      const newList = state.list.filter((post) => post.id !== id);
+
+      state.list = newList;
     },
   },
 });
