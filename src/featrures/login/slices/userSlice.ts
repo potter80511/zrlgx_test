@@ -46,6 +46,7 @@ const userSlice = createSlice<State, CaseReducer>({
       const { user, token } = action.payload
 
       jsCookie.set('user_token', token);
+      jsCookie.set('isLogin', 'true');
 
       state.userInfo = user;
       state.token = token;
@@ -63,6 +64,7 @@ const userSlice = createSlice<State, CaseReducer>({
     },
     [logoutAction.fulfilled.toString()]: (state) => {
       jsCookie.remove('user_token');
+      jsCookie.remove('isLogin');
       return initialState;
     },
 

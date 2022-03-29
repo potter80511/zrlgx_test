@@ -17,11 +17,10 @@ const RegisteredContainer = () => {
   const postListNextPage = useSelector(postListNextPageSelector);
   const postListHasMore = useSelector(postListHasMoreSelector);
   const userInfo = useSelector(userInfoSelector);
-  console.log(postListNextPage, 'postListNextPage')
 
   const userToken = CookiesHelper.getUserToken();
+  const isLogin = CookiesHelper.getCookie('isLogin');
 
-  const isLogin = !!userInfo;
 
   const onRegisterClick = useCallback(() => {
     if (isLogin) {
@@ -33,11 +32,21 @@ const RegisteredContainer = () => {
 
   useEffect(() => {
     dispatch(getPostList({per_page: 12, page: postListNextPage, token: userToken, favourited: 1}));
+  
+    if (!isLogin) {
+      navigate('/login');
+    }
 
     return () => {
       dispatch(resetPostList());
     }
   }, []);
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/login');
+    }
+  }, [isLogin]);
 
  return <PostListBlock
     list={postList}

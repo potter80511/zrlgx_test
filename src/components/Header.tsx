@@ -56,7 +56,7 @@ const Header = () => {
 
   const logout = useCallback(() => {
     userToken && dispatch(logoutAction(userToken))
-  }, [dispatch, logoutAction]);
+  }, [dispatch, logoutAction, userToken]);
 
   useEffect(() => {
     userToken && dispatch(checkUserToken({ token: userToken }));
