@@ -9,6 +9,7 @@ import Login from './featrures/login/Login';
 import Header from './components/Header';
 import WebinarDetail from './featrures/webinar_detail/WebinarDetailContainer';
 import Footer from './components/Footer';
+import RegisteredContainer from './featrures/registered/RegisteredContainer';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Header/>
           <Routes>
             <Route path="/" element={<IndexContainer/>} />
+            <Route path="/registered" element={<RegisteredContainer/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/webinar/:id" element={<WebinarDetail />} />
             {/* 當上方的path都沒有被匹配到 <NoMatch> 就會被渲染 */}

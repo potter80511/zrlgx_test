@@ -43,7 +43,7 @@ const postListSlice = createSlice<State, CaseReducer>({
 
       state.list = newList;
       state.loading = false;
-      state.page = state.page + 12;
+      state.page = state.page + 1;
     },
   },
 });

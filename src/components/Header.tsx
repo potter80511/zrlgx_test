@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userInfoSelector, checkUserLoginLoadingSelector } from '../featrures/login/selectors'
 import { checkUserToken, logoutAction } from '../featrures/login/actions/loginActions';
 import Flex from './Flex';
-import jsCookie from 'js-cookie';
+import { CookiesHelper } from '../helper/CookiesHelper';
 
 const StyledHeaderContent = styled(StyledContainer)`
   padding: 20px 0;
@@ -52,14 +52,13 @@ const Header = () => {
   const checkUserLoginLoading = useSelector(checkUserLoginLoadingSelector);
   const userInfo = useSelector(userInfoSelector);
   const isLogin = !!userInfo;
+  const userToken = CookiesHelper.getUserToken();
 
   const logout = useCallback(() => {
-    const userToken = jsCookie.get('user_token');
     userToken && dispatch(logoutAction(userToken))
   }, [dispatch, logoutAction]);
 
   useEffect(() => {
-    const userToken = jsCookie.get('user_token');
     userToken && dispatch(checkUserToken({ token: userToken }));
   }, []);
   

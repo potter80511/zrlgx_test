@@ -5,6 +5,7 @@ type Params = {
   per_page: number;
   page: number;
   favourited?: number;
+  token?: string;
 }
 
 export const getPostList = createAsyncThunk(

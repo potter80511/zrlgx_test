@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { SinglePost } from '../../webinar_detail/types';
 import Post from './Post';
 import { Waypoint } from 'react-waypoint';
+import { StyledContainer } from '../../../styles/commonStyles';
 
 type PostListProps = {
   list: SinglePost[];
@@ -13,6 +14,12 @@ type PostListProps = {
 }
 
 const StyledPostList = styled.div`
+  background: #F2F2F2;
+  padding: 80px;
+  
+`
+
+const StyledPostListContainer = styled(StyledContainer)`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -24,24 +31,26 @@ const PostListBlock = (props: PostListProps) => {
   const { list = [], loading, hasMore, getMorePost, onRegisterClick } = props;
 
   return <StyledPostList>
-    {loading ?
-      <div>loading</div>
-    : <>
-        {list.map((post) => {
-          return <Post
-            key={post.id}
-            post={post}
-            onRegisterClick={onRegisterClick}
-          />
-        })}
-        {hasMore &&
-          <Waypoint
-            horizontal
-            onEnter={getMorePost}
-          ><div>has more</div></Waypoint>
-        }
-      </>
-    }
+    <StyledPostListContainer>
+      {loading ?
+        <div>loading</div>
+      : <>
+          {list.map((post) => {
+            return <Post
+              key={post.id}
+              post={post}
+              onRegisterClick={onRegisterClick}
+            />
+          })}
+          {hasMore &&
+            <Waypoint
+              horizontal
+              onEnter={getMorePost}
+            ><div>has more</div></Waypoint>
+          }
+        </>
+      }
+    </StyledPostListContainer>
   </StyledPostList>
 }
 
