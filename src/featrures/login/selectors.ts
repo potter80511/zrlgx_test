@@ -13,3 +13,8 @@ export const userUnAuthorizedSelector = createSelector(
   ({ unAuthorized }) => unAuthorized
 );
 
+export const checkUserLoginLoadingSelector = createSelector(
+  userSelector, 
+  ({ isLoading }) => isLoading
+);
+

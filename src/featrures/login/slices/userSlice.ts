@@ -7,12 +7,14 @@ export type State = {
   userInfo: UserInfo | null;
   token: string;
   unAuthorized: boolean;
+  isLoading: boolean;
 }
 
 export const initialState: State = {
   userInfo: null,
   token: '',
   unAuthorized: false,
+  isLoading: false,
 }
 
 export type CaseReducer = {
@@ -37,9 +39,9 @@ const userSlice = createSlice<State, CaseReducer>({
     }
   },
   extraReducers: {
-    // [getPostList.pending.toString()]: (state) => {
-    //   state.loading = true;
-    // },
+    [loginAction.pending.toString()]: (state) => {
+      state.isLoading = true;
+    },
     [loginAction.fulfilled.toString()]: (state, action: PayloadAction<NetLoginResponse>) => {
       const { user, token } = action.payload
 
@@ -48,20 +50,29 @@ const userSlice = createSlice<State, CaseReducer>({
       state.userInfo = user;
       state.token = token;
       state.unAuthorized = false;
+      state.isLoading = false;
     },
     [loginAction.rejected.toString()]: (state) => {
       console.log('fail')
       state.unAuthorized = true;
+      state.isLoading = false;
     },
     
-    [logoutAction.fulfilled.toString()]: () => {
+    [logoutAction.pending.toString()]: (state) => {
+      state.isLoading = true;
+    },
+    [logoutAction.fulfilled.toString()]: (state) => {
       jsCookie.remove('user_token');
       return initialState;
     },
 
+    [checkUserToken.pending.toString()]: (state) => {
+      state.isLoading = true;
+    },
     [checkUserToken.fulfilled.toString()]: (state, action: PayloadAction<Pick<NetLoginResponse, 'user'>>) => {
       const { user } = action.payload
       state.userInfo = user;
+      state.isLoading = false;
     },
   },
 });

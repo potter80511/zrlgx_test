@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PostList } from '../types';
+import { SinglePost } from '../../webinar_detail/types';
 import Post from './Post';
 import { Waypoint } from 'react-waypoint';
 
 type PostListProps = {
-  list: PostList[];
+  list: SinglePost[];
   loading: boolean;
   hasMore: boolean;
   getMorePost: () => void;
@@ -28,7 +28,11 @@ const PostListBlock = (props: PostListProps) => {
       <div>loading</div>
     : <>
         {list.map((post) => {
-          return <Post key={post.id} post={post} onRegisterClick={onRegisterClick} />
+          return <Post
+            key={post.id}
+            post={post}
+            onRegisterClick={onRegisterClick}
+          />
         })}
         {hasMore &&
           <Waypoint

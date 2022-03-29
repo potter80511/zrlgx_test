@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { lineClamp } from '../../../styles/mixin';
-import { PostList } from '../types';
+import { SinglePost } from '../../webinar_detail/types';
 import arrowCircle from '../../../svg/arrow.svg'
 import dayjs from 'dayjs';
+import { Link } from 'react-router-dom';
+import { WebinarDetailPath } from '../../webinar_detail/WebinarDetailPath';
 
 type PostProps = {
-  post: PostList;
+  post: SinglePost;
   onRegisterClick: () => void;
 }
 
@@ -36,11 +38,12 @@ const StyledPost = styled.div`
   }
 `
 
-const StyledH3 = styled.div`
-  color: #01254F;
-  font-weight: 600;
+const StyledH3 = styled.h3`
   font-size: 16px;
-  margin-bottom: 14px;
+  margin: 0 0 14px;
+  a {
+    color: #01254F;
+  }
 `;
 
 const StyledContent = styled.div<{clamp?: number;}>`
@@ -67,14 +70,16 @@ const StyledRegisterNow = styled.button`
 
 const Post = (props: PostProps) => {
   const {
-    post: { title, created_at, content, favourited },
+    post: { id, title, created_at, content, favourited },
     onRegisterClick
   } = props;
 
   return (
     <StyledPost>
       <StyledCreatedAt>{dayjs(created_at).format('DD/MM/YYYY')}</StyledCreatedAt>
-      <StyledH3>{title}</StyledH3>
+      <StyledH3>
+        <Link to={WebinarDetailPath.show(id)}>{title}</Link>
+      </StyledH3>
       <StyledContent dangerouslySetInnerHTML={{__html: content}} clamp={3} />
       <StyledRegisterNow onClick={onRegisterClick}>
         <span>Register Now</span>

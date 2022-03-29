@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../styles/commonStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { userInfoSelector } from '../featrures/login/selectors'
+import { userInfoSelector, checkUserLoginLoadingSelector } from '../featrures/login/selectors'
 import { checkUserToken, logoutAction } from '../featrures/login/actions/loginActions';
 import Flex from './Flex';
 import jsCookie from 'js-cookie';
@@ -49,6 +49,7 @@ const StyledUserName = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const checkUserLoginLoading = useSelector(checkUserLoginLoadingSelector);
   const userInfo = useSelector(userInfoSelector);
   const isLogin = !!userInfo;
 
@@ -71,9 +72,18 @@ const Header = () => {
         <div>menu</div>
         <StyledUserButtons>
           <Flex alignItems="center">
-            {isLogin
-              ? <StyledUserName>Hello <b>{userInfo.username}</b> !</StyledUserName>
-              : <StyledLoginButton to="/login">Login</StyledLoginButton>
+            {checkUserLoginLoading
+              ? <StyledUserName>
+                  Loading...
+                </StyledUserName>
+              : isLogin
+                ? <StyledUserName>
+                    {checkUserLoginLoading
+                      ? <>Hello <b>{userInfo.username}</b> !</>
+                      : <>Hello <b>{userInfo.username}</b> !</>
+                    }
+                  </StyledUserName>
+                : <StyledLoginButton to="/login">Login</StyledLoginButton>
             }
             <StyledRegisterButton onClick={() => isLogin && logout()}>{isLogin ? 'Logout' : 'Register'}</StyledRegisterButton>
           </Flex>

@@ -1,15 +1,10 @@
+import { SinglePost } from "../webinar_detail/types";
+
 export type NetPostListData = {
-  data: PostList;
+  data: SinglePost[];
   meta: {
     pagination: {
       total: number;
     }
   };
-}
-export type PostList = {
-  id: number;
-  created_at: string;
-  title: string;
-  content: string;
-  favourited: boolean;
 }

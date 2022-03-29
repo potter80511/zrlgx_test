@@ -10,7 +10,7 @@ export const getApi = (url: string, config?: AxiosRequestConfig) => {
   return axios.get(url, {...baseConfig, ...config});
 };
 
-export const postApi = (url: string, data: any, config?: AxiosRequestConfig) => {
+export const postApi = (url: string, data?: any, config?: AxiosRequestConfig) => {
   return axios.post(url, data, { ...baseConfig, ...config });
 };
 

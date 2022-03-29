@@ -7,6 +7,7 @@ import IndexContainer from './featrures/index/IndexContainer';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Login from './featrures/login/Login';
 import Header from './components/Header';
+import WebinarDetail from './featrures/webinar_detail/WebinarDetailContainer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<IndexContainer/>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/webinar/:id" element={<WebinarDetail />} />
             {/* 當上方的path都沒有被匹配到 <NoMatch> 就會被渲染 */}
             {/* <Route component={NoMatch} /> */}
           </Routes>

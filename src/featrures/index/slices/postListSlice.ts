@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import { getPostList } from '../actions/postListActions';
-import { NetPostListData, PostList } from '../types';
+import { NetPostListData } from '../types';
+import { SinglePost } from '../../webinar_detail/types';
 
 export type State = {
-  list: PostList[];
+  list: SinglePost[];
   loading: boolean;
   hasMore: boolean;
   page: number;
