@@ -8,18 +8,31 @@ import { SinglePost } from '../types';
 const StyledDetailInfo = styled(StyledContainer)`
   margin-top: 50px;
 `;
+const StyledTitle = styled.h1`
+  margin-top: 0;
+  color: #333;
+`;
+const StyledCreatedAt = styled.div`
+  color: #999;
+`;
+const StyledContent = styled.div`
+  color: #555;
+`;
 
 const DetailInfo = (props: { detailInfo: SinglePost }) => {
   const {
     detailInfo: {
       created_at,
       title,
+      content,
     }
   }  = props;
   
   return (
     <StyledDetailInfo>
-      detail {created_at}
+      <StyledTitle>{title}</StyledTitle>
+      <StyledCreatedAt>{created_at}</StyledCreatedAt>
+      <StyledContent dangerouslySetInnerHTML={{__html: content}} />
     </StyledDetailInfo>
   )
 }

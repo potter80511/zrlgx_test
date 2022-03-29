@@ -46,7 +46,7 @@ const StyledH3 = styled.h3`
   }
 `;
 
-const StyledContent = styled.div<{clamp?: number;}>`
+const StyledContent = styled(Link)<{clamp?: number;}>`
   ${({ clamp }) => lineClamp(clamp)};
   color: rgba(0, 0, 0, 0.65);
   font-weight: 600;
@@ -80,7 +80,7 @@ const Post = (props: PostProps) => {
       <StyledH3>
         <Link to={WebinarDetailPath.show(id)}>{title}</Link>
       </StyledH3>
-      <StyledContent dangerouslySetInnerHTML={{__html: content}} clamp={3} />
+      <StyledContent to={WebinarDetailPath.show(id)} dangerouslySetInnerHTML={{__html: content}} clamp={3} />
       <StyledRegisterNow onClick={onRegisterClick}>
         <span>Register Now</span>
         <img src={arrowCircle} />
