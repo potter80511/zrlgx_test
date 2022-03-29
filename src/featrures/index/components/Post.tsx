@@ -83,7 +83,7 @@ const Post = (props: PostProps) => {
       <StyledContent to={WebinarDetailPath.show(id)} dangerouslySetInnerHTML={{__html: content}} clamp={3} />
       <StyledRegisterNow onClick={onRegisterClick}>
         <span>Register Now</span>
-        <img src={arrowCircle} />
+        <span><img src={arrowCircle} /></span>
       </StyledRegisterNow>
     </StyledPost>
   )

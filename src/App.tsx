@@ -8,6 +8,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Login from './featrures/login/Login';
 import Header from './components/Header';
 import WebinarDetail from './featrures/webinar_detail/WebinarDetailContainer';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             {/* 當上方的path都沒有被匹配到 <NoMatch> 就會被渲染 */}
             {/* <Route component={NoMatch} /> */}
           </Routes>
+          <Footer/>
         </BrowserRouter>
       </div>
     </Provider>
