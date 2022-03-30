@@ -15,6 +15,9 @@ const StyledHeaderContent = styled(StyledContainer)`
   justify-content: space-between;
   align-items: center;
 `;
+const StyledLogo = styled.div`
+  width: 115px;
+`;
 
 const StyledUserButtons = styled.div`
   button, a {
@@ -65,9 +68,9 @@ const Header = () => {
   return (
     <header>
       <StyledHeaderContent>
-        <div>
-          <Link to="/">logo</Link>
-        </div>
+        <StyledLogo>
+          <Link to="/"><img src="/image/logo.png" /></Link>
+        </StyledLogo>
         <div>menu</div>
         <StyledUserButtons>
           <Flex alignItems="center">
