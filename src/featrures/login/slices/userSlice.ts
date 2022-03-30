@@ -8,6 +8,7 @@ export type State = {
   token: string;
   unAuthorized: boolean;
   isLoading: boolean;
+  isLogin: boolean;
 }
 
 export const initialState: State = {
@@ -15,10 +16,11 @@ export const initialState: State = {
   token: '',
   unAuthorized: false,
   isLoading: false,
+  isLogin: false,
 }
 
 export type CaseReducer = {
-  setUserInfo: (state: State, action: PayloadAction<Partial<State>>) => State
+  setUserState: (state: State, action: PayloadAction<Partial<State>>) => State
   reset: () => void
 }
 
@@ -26,7 +28,7 @@ const userSlice = createSlice<State, CaseReducer>({
   name: '/userSlice',
   initialState,
   reducers: {
-    setUserInfo(state: State, action: PayloadAction<Partial<State>>) {
+    setUserState(state: State, action: PayloadAction<Partial<State>>) {
       return {
         ...state,
         ...action.payload
@@ -52,6 +54,7 @@ const userSlice = createSlice<State, CaseReducer>({
       state.token = token;
       state.unAuthorized = false;
       state.isLoading = false;
+      state.isLogin = true;
     },
     [loginAction.rejected.toString()]: (state) => {
       console.log('fail')
@@ -75,12 +78,13 @@ const userSlice = createSlice<State, CaseReducer>({
       const { user } = action.payload
       state.userInfo = user;
       state.isLoading = false;
+      state.isLogin = true;
     },
   },
 });
 
 export const {
-  setUserInfo,
+  setUserState,
   reset,
 } = userSlice.actions;
 

@@ -7,7 +7,6 @@ export class CookiesHelper {
   }
 
   static setCookie(key: string, value: any): void {
-    console.log(key)
     jsCookie.set(key, value);
   }
 

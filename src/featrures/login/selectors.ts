@@ -18,3 +18,8 @@ export const checkUserLoginLoadingSelector = createSelector(
   ({ isLoading }) => isLoading
 );
 
+export const isLoginSelector = createSelector(
+  userSelector, 
+  ({ isLogin }) => isLogin
+);
+
