@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPostList } from './actions/postListActions';
 import Intro from './components/Intro';
+import Overview from './components/OverView';
 import PostListBlock from './components/PostListBlock';
 import { postListSelector, postListLoadingSelector, postListNextPageSelector, postListHasMoreSelector } from './selectors';
 import { reset as resetPostList } from './slices/postListSlice';
@@ -47,6 +48,7 @@ const IndexContainer = () => {
       getMorePost={() => dispatch(getPostList({per_page: 12, page: postListNextPage}))}
       onRegisterClick={onRegisterClick}
     />
+    <Overview/>
   </StyledIndex>
 }
 
