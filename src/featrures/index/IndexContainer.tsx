@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPostList } from './actions/postListActions';
+import Intro from './components/Intro';
 import PostListBlock from './components/PostListBlock';
 import { postListSelector, postListLoadingSelector, postListNextPageSelector, postListHasMoreSelector } from './selectors';
 import { reset as resetPostList } from './slices/postListSlice';
@@ -38,6 +39,7 @@ const IndexContainer = () => {
   }, []);
 
   return <StyledIndex>
+    <Intro/>
     <PostListBlock
       list={postList}
       loading={postListLoading}
