@@ -2,17 +2,18 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { getApi } from '../../api/Fetcher';
 import { NetDetailInfoResponse, SinglePost } from './types';
 
-export const useGetDetail = (id: number): {
+export const useGetDetail = (id: number, token?: string): {
   detailInfo: SinglePost | null;
   loading: boolean;
+  getDetailInfo: () => void;
 } => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [detailInfo, setDetailInfo] = useState<SinglePost | null>(null);
 
   const getDetailInfo = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
-      const response = await getApi(`/posts/${id}`);
+      const response = await getApi(`/posts/${id}`, { params: { token } });
       const { data } = response;
       const result = data as NetDetailInfoResponse;
 
@@ -25,12 +26,12 @@ export const useGetDetail = (id: number): {
   }
 
   useEffect(() => {
-    console.log(id, 'id')
     id && getDetailInfo();
   }, [id]);
 
   return {
     detailInfo,
     loading,
+    getDetailInfo,
   }
 }

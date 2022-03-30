@@ -86,8 +86,6 @@ const Login = () => {
   const onLoginSubmit = useCallback(() => {
     dispatch(loginAction({email, password}));
 
-    console.log(rememberMe, 'rememberMe')
-
     rememberMe
       ? CookiesHelper.setCookie('user_email', email)
       : CookiesHelper.removeCookie('user_email')

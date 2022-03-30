@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteApi, getApi } from "../../../api/Fetcher";
+import { deleteApi, getApi, postApi } from "../../../api/Fetcher";
 
 type GetPostListParams = {
   per_page: number;
@@ -8,7 +8,7 @@ type GetPostListParams = {
   token?: string;
 }
 
-type DeletePostParams = {
+type CommonPostParams = {
   token: string;
   id: number;
 }
@@ -29,11 +29,23 @@ export const getPostList = createAsyncThunk(
 
 export const unFavoritePosts = createAsyncThunk(
   'postList/unFavoritePosts',
-  async (params: DeletePostParams, thunkAPI) => {
+  async (params: CommonPostParams, thunkAPI) => {
     const { id, token } = params;
     try {
       await deleteApi(`/favourites/post/${id}`, { params: { token } });
       return { id };
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error })
+    }
+  }
+);
+
+export const addFavoritePosts = createAsyncThunk(
+  'postList/addFavoritePosts',
+  async (params: CommonPostParams, thunkAPI) => {
+    const { id, token } = params;
+    try {
+      await postApi('/favourites', { token, ids: [id], model: 'post' });
     } catch (error) {
       return thunkAPI.rejectWithValue({ error })
     }

@@ -5,6 +5,7 @@ export type SinglePost = {
   title: string;
   content: string;
   favourited: boolean;
+  favourite_count: number;
 }
 
 export type NetDetailInfoResponse = {
